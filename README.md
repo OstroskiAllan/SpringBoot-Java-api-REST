@@ -34,6 +34,12 @@ A configuração do banco de dados é definida no arquivo **application.properti
 
 **POST /usuario/save:** Aceita um objeto JSON representando um usuário no corpo da requisição e salva-o no banco de dados.
 
+**GET /usuario/id:** Retorna o usuario do ID informado.
+
+**DELETE /usuario/del/id:** Delete o usuario do ID informado.
+
+**PUT /usuario/update/id:** Faz um update no usuario do ID informado.
+
 ## Como Usar
 1. Clone o repositório.
 
