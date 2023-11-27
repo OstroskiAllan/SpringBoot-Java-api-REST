@@ -1,6 +1,7 @@
 package com.example.organizze.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,81 +23,108 @@ import com.example.organizze.model.Usuario;
 import com.example.organizze.repository.UsuarioRepository;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
-    
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    //Buscando todos usuarios
-    @GetMapping("/all") //Endereco
-    public List<Usuario> getAllUsuario(){
+    // Endpoint login
+    @PostMapping(value = "/login",  consumes = "application/json")
+    public ResponseEntity login(@RequestBody Usuario usuario) {
+        boolean isAuthenticated = authenticateUser(usuario.getNome(), usuario.getSenha());
+
+        if (isAuthenticated) {
+            // Gere o token JWT e retorne no corpo da resposta, por exemplo
+            String token = generateJwtToken(usuario.getNome());
+            return ResponseEntity.ok().body(Map.of("token", token));
+        } else {
+            // Se a autenticação falhar, retorne uma resposta não autorizada
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    // Método de simulação para verificar autenticação
+    private boolean authenticateUser(String nome, String senha) {
+        // Lógica de autenticação real aqui (por exemplo, verificar no banco de dados)
+        // Esta é apenas uma simulação
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByNome(nome);
+
+        return usuarioOptional.map(usuario -> senha.equals(usuario.getSenha())).orElse(false);
+   }
+
+    // Método de simulação para gerar token JWT
+    private String generateJwtToken(String username) {
+        // Lógica real de geração de token JWT aqui
+        // Esta é apenas uma simulação
+        return "12333124124234441432414";
+    }
+
+    
+
+    // Buscando todos usuarios
+    @GetMapping("/all") // Endereco
+    public List<Usuario> getAllUsuario() {
         return usuarioRepository.findAll();
     }
 
-    //Buscando usuario por id
+    // Buscando usuario por id
     @GetMapping("/{id}")
-    public Usuario getUsuarioById(@PathVariable Integer id){
+    public Usuario getUsuarioById(@PathVariable Integer id) {
         return usuarioRepository
                 .findById(id)
-                .orElseThrow(() ->
-                    new ResponseStatusException(HttpStatus.NOT_FOUND,
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Usuario não encontrado"));
-      
+
     }
 
-    //Salvando novo usuario
+    // Salvando novo usuario
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario save( @RequestBody Usuario usuario){
+    public Usuario save(@RequestBody Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    //Deletando usuario rest api
-	@DeleteMapping("/{id}")
+    // Deletando usuario rest api
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete (@PathVariable Integer id){
+    public void delete(@PathVariable Integer id) {
         usuarioRepository.findById(id)
-            .map(usuario -> {
-                usuarioRepository.delete(usuario);
-                return usuario;
-            })
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                "Usuario não encontrado") );
-       
-	}
+                .map(usuario -> {
+                    usuarioRepository.delete(usuario);
+                    return usuario;
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Usuario não encontrado"));
 
-   //Alterando um usuario
-   @PutMapping("/update/{id}")
-   public  ResponseEntity update(@PathVariable Integer id, @RequestBody  Usuario usuario) {
-      return usuarioRepository
-               .findById(id)
-               .map( usuarioExistente -> {
-                   usuario.setId(usuarioExistente.getId());
-                   usuarioRepository.save(usuario);
-                   return ResponseEntity.noContent().build();
-               }).orElseGet( () -> ResponseEntity.notFound().build() );
+    }
 
-   }
+    // Alterando um usuario
+    @PutMapping("/update/{id}")
+    public ResponseEntity update(@PathVariable Integer id, @RequestBody Usuario usuario) {
+        return usuarioRepository
+                .findById(id)
+                .map(usuarioExistente -> {
+                    usuario.setId(usuarioExistente.getId());
+                    usuarioRepository.save(usuario);
+                    return ResponseEntity.noContent().build();
+                }).orElseGet(() -> ResponseEntity.notFound().build());
 
-
+    }
 
     @GetMapping("/procurar")
-    public List<Usuario> find( Usuario filtro){
+    public List<Usuario> find(Usuario filtro) {
         ExampleMatcher matcher = ExampleMatcher
-                        .matching()
-                        .withIgnoreCase()
-                        .withStringMatcher(
-                            ExampleMatcher.StringMatcher.CONTAINING
-                        );
+                .matching()
+                .withIgnoreCase()
+                .withStringMatcher(
+                        ExampleMatcher.StringMatcher.CONTAINING);
 
         Example example = Example.of(filtro, matcher);
-        
+
         return usuarioRepository.findAll(example);
 
     }
 
-
-}   
+}

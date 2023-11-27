@@ -1,10 +1,14 @@
 package com.example.organizze.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -12,17 +16,20 @@ import jakarta.persistence.Table;
 @Table(name = "usuario")
 public class Usuario {
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    @Column(name = "nome")
-	private String nome;
-	
-	@Column(name = "email")
-	private String email;
-	
-    @Column(name = "senha")
-	private String senha;
+    @Column(nullable = false, length = 80)
+    private String nome;
+
+    @Column(nullable = false, length = 100)
+    private String email;
+
+    @Column(nullable = false, length = 100)
+    private String senha;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Tarefa> tarefas;
 
 	public Usuario() {
 		
