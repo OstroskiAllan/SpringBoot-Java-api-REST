@@ -32,7 +32,5 @@ public class Tarefa {
     @JoinColumn(name = "tabela_id")
     private Tabela tabela;
 
-    
-
 
 }

@@ -23,5 +23,7 @@ public class Projeto {
     @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL)
     private List<Tabela> tabelas;
 
-    
+
+        
+
 }
