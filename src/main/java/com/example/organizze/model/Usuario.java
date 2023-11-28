@@ -2,21 +2,13 @@ package com.example.organizze.model;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-
-@Entity(name = "usuario")
+@Entity
 @Table(name = "usuario")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(nullable = false, length = 80)
@@ -31,11 +23,11 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Tarefa> tarefas;
 
-	public Usuario() {
-		
-	}
+    public Usuario() {
 
-    public Usuario(String nome, String email, String senha){
+    }
+
+    public Usuario(String nome, String email, String senha) {
         super();
         this.nome = nome;
         this.email = email;
@@ -73,6 +65,5 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
+
 }

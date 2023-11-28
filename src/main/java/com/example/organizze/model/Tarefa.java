@@ -1,17 +1,12 @@
 package com.example.organizze.model;
 
 import java.util.Date;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "tarefa")
 public class Tarefa {
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -23,14 +18,64 @@ public class Tarefa {
     private String observacaoTarefa;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "data")
     private Date data;
 
     @Temporal(TemporalType.DATE)
+    @Column(nullable = true, name = "dataEntrega")
     private Date dataEntrega;
 
+
     @ManyToOne
-    @JoinColumn(name = "tabela_id")
+    @JoinColumn(nullable = false, name = "tabela_id")
     private Tabela tabela;
 
+    public Tarefa(){}
+
+    public Tarefa(String observacaoTarefa, Date data, Date dataEntrega, Tabela tabela){
+        super();
+        this.observacaoTarefa = observacaoTarefa;
+        this.tabela = tabela;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getObservacaoTarefa() {
+        return observacaoTarefa;
+    }
+
+    public void setObservacoTarefa(String observacaoTarefa) {
+        this.observacaoTarefa = observacaoTarefa;
+    }   
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }   
+
+    public Date getDataEntrega() {
+        return dataEntrega;
+    }
+
+    public void setDataEntrega(Date dataEntrega) {
+        this.dataEntrega = dataEntrega;
+    }   
+
+    public Tabela getTabela() {
+        return tabela;
+    }
+
+    public void setTabela(Tabela tabela) {
+        this.tabela = tabela;
+    }
 
 }
