@@ -1,6 +1,6 @@
 package com.example.organizze.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -23,10 +23,11 @@ public class Projeto {
     @Column(nullable = true, name = "data")
     private Date data;
 
+    /*
     @Temporal(TemporalType.DATE)
-    @Column(nullable = true, name = "dataEntrega")
-    private Date dataEntrega;
-
+    @Column(nullable = true, name = "dataFinal")
+    private Date dataFinal;
+    */
 
     @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL)
     private List<Tabela> tabelas;
@@ -71,12 +72,13 @@ public class Projeto {
         this.data = data;
     }   
 
-    public Date getDataEntrega() {
-        return dataEntrega;
+    /* 
+    public Date getDataFinal() {
+        return dataFinal;
     }
 
-    public void setDataEntrega(Date dataEntrega) {
-        this.dataEntrega = dataEntrega;
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
     }   
-
+    */
 }
