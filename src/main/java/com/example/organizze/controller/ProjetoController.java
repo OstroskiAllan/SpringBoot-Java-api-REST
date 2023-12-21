@@ -1,7 +1,7 @@
 package com.example.organizze.controller;
 
 import com.example.organizze.model.Projeto;
-
+import com.example.organizze.model.Tabela;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,27 +11,38 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.organizze.repository.ProjetoRepository;
+import com.example.organizze.repository.TabelaRepository;
 
 @RestController
 @RequestMapping("/projeto")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ProjetoController {
-  private ProjetoRepository projetoRepository;
-
-    @Autowired
-    public ProjetoController(ProjetoRepository projetoRepository) {
-        this.projetoRepository = projetoRepository;
-    }
+    private ProjetoRepository projetoRepository;
+    private TabelaRepository tabelaRepository;
     
+    @Autowired
+    public ProjetoController(ProjetoRepository projetoRepository, TabelaRepository tabelaRepository) {
+        this.projetoRepository = projetoRepository;
+        this.tabelaRepository = tabelaRepository;
+    }
+
+    @GetMapping("/dash/{projeto}")
+    public ResponseEntity<List<Tabela>> getAllTabelasByProjeto(@PathVariable Integer id) {
+        // Buscar todas as tabelas relacionadas ao projeto
+        List<Tabela> tabelas = tabelaRepository.findByProjetoId(id);
+        return new ResponseEntity<>(tabelas, HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<Projeto>> getAllProjetos() {
         List<Projeto> projetos = projetoRepository.findAll();
         return new ResponseEntity<>(projetos, HttpStatus.OK);
     }
     /*
-    public List<Projeto> getAllProjeto() {
-        return projetoRepository.findAll();
-    } */
+     * public List<Projeto> getAllProjeto() {
+     * return projetoRepository.findAll();
+     * }
+     */
 
     @GetMapping("/{id}")
     public ResponseEntity<Projeto> getProjetoById(@PathVariable Integer id) {

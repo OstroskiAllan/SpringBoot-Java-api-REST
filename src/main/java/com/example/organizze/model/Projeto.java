@@ -24,17 +24,18 @@ public class Projeto {
     private Date data;
 
     /*
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = true, name = "dataFinal")
-    private Date dataFinal;
-    */
-
+     * @Temporal(TemporalType.DATE)
+     * 
+     * @Column(nullable = true, name = "dataFinal")
+     * private Date dataFinal;
+     */
     @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL)
     private List<Tabela> tabelas;
 
-    public Projeto(){}
+    public Projeto() {
+    }
 
-    public Projeto(String nome, String observacoes){
+    public Projeto(String nome, String observacoes) {
         super();
         this.nome = nome;
         this.observacoes = observacoes;
@@ -70,15 +71,15 @@ public class Projeto {
 
     public void setData(Date data) {
         this.data = data;
-    }   
-
-    /* 
-    public Date getDataFinal() {
-        return dataFinal;
     }
 
-    public void setDataFinal(Date dataFinal) {
-        this.dataFinal = dataFinal;
-    }   
-    */
+    /*
+     * public Date getDataFinal() {
+     * return dataFinal;
+     * }
+     * 
+     * public void setDataFinal(Date dataFinal) {
+     * this.dataFinal = dataFinal;
+     * }
+     */
 }

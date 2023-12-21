@@ -1,6 +1,5 @@
 package com.example.organizze.model;
 
-import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -14,22 +13,18 @@ public class Tabela {
     @Column(nullable = false, length = 45)
     private String nome;
     
-    @Column(nullable = true, length = 200)
-    private String observacoes;
-    
     @ManyToOne
-    @JoinColumn(name = "projeto_id", nullable = false)
+    @JoinColumn(name = "projeto", nullable = false)
     private Projeto projeto;
 
-    @OneToMany(mappedBy = "tabela", cascade = CascadeType.ALL)
-    private List<Tarefa> tarefas;
+    //@OneToMany(mappedBy = "tabela", cascade = CascadeType.ALL)
+    // private List<Tarefa> tarefas;
     
     public Tabela(){}
 
     public Tabela(String nome, String observacoes,  Projeto projeto){
         super();
         this.nome = nome;
-        this.observacoes = observacoes;
         this.projeto = projeto;
     }
 
@@ -49,14 +44,6 @@ public class Tabela {
         this.nome = nome;
     }
 
-    public String getObservacoes() {
-        return observacoes;
-    }
-
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
-    }
-
     public Projeto getProjeto() {
         return projeto;
     }
@@ -64,14 +51,14 @@ public class Tabela {
     public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
     }
-
+/*
     public List<Tarefa> getTarefas() {
         return tarefas;
     }
 
     public void setTarefas(List<Tarefa> tarefas) {
         this.tarefas = tarefas;
-    }
+    } */
 }
 
 

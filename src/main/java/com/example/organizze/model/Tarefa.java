@@ -1,4 +1,4 @@
-package com.example.organizze.model;
+/*package com.example.organizze.model;
 
 import java.util.Date;
 import jakarta.persistence.*;
@@ -78,4 +78,4 @@ public class Tarefa {
         this.tabela = tabela;
     }
 
-}
+}*/

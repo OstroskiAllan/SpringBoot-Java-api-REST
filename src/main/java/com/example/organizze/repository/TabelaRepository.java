@@ -1,12 +1,10 @@
 package com.example.organizze.repository;
-import com.example.organizze.model.Projeto;
-import com.example.organizze.model.Tabela;
-
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.organizze.model.Tabela;
 
-public interface ProjetoRepository extends JpaRepository<Projeto, Integer> {
+public interface TabelaRepository extends JpaRepository<Tabela, Integer>  {
 
     List<Tabela> findByProjetoId(Integer id);
 }

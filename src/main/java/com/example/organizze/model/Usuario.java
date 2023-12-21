@@ -19,10 +19,10 @@ public class Usuario {
 
     @Column(nullable = false, length = 100)
     private String senha;
-
+    /* 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Tarefa> tarefas;
-
+    */
     public Usuario() {
 
     }
