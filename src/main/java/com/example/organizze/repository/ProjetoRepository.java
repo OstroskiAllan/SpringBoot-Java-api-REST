@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProjetoRepository extends JpaRepository<Projeto, Integer> {
 
-    List<Tabela> findByProjetoId(Integer id);
+    List<Tabela> findByTabelas_ProjetoId(Integer id);
 }

@@ -14,7 +14,7 @@ public class Tabela {
     private String nome;
     
     @ManyToOne
-    @JoinColumn(name = "projeto", nullable = false)
+    @JoinColumn(name = "projeto_id", nullable = false)
     private Projeto projeto;
 
     //@OneToMany(mappedBy = "tabela", cascade = CascadeType.ALL)

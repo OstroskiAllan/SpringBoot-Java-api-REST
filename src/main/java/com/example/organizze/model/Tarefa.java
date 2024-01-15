@@ -1,4 +1,4 @@
-/*package com.example.organizze.model;
+package com.example.organizze.model;
 
 import java.util.Date;
 import jakarta.persistence.*;
@@ -50,7 +50,7 @@ public class Tarefa {
         return observacaoTarefa;
     }
 
-    public void setObservacoTarefa(String observacaoTarefa) {
+    public void setObservacaoTarefa(String observacaoTarefa) {
         this.observacaoTarefa = observacaoTarefa;
     }   
 
@@ -78,4 +78,4 @@ public class Tarefa {
         this.tabela = tabela;
     }
 
-}*/
+}

@@ -10,18 +10,30 @@ import org.springframework.web.bind.annotation.*;
 
 
 import com.example.organizze.model.Tabela;
+import com.example.organizze.model.Tarefa;
 import com.example.organizze.repository.TabelaRepository;
+import com.example.organizze.repository.TarefaRepository;
 
 @RestController
 @RequestMapping("/tabela")
 @CrossOrigin(origins = "http://localhost:4200")
 public class TabelaController {
     private TabelaRepository tabelaRepository;
-
+    private TarefaRepository tarefaRepository;
+    
     @Autowired
-    public TabelaController(TabelaRepository tabelaRepository) {
+    public TabelaController(TabelaRepository tabelaRepository, TarefaRepository tarefaRepository) {
         this.tabelaRepository = tabelaRepository;
+        this.tarefaRepository = tarefaRepository;
     }
+
+    @GetMapping("/tt/{tabela}")
+    public ResponseEntity<List<Tarefa>> getAllTarefasByTabela(@PathVariable Integer tabela) {
+        // Buscar todas as tarefas relacionadas a tarefa
+        List<Tarefa> tarefas = tarefaRepository.findByTabelaId(tabela);
+        return new ResponseEntity<>(tarefas, HttpStatus.OK);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Tabela> getTabelaById(@PathVariable Integer id) {
