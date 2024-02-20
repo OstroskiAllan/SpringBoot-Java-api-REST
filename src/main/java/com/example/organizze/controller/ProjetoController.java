@@ -25,7 +25,7 @@ public class ProjetoController {
         this.projetoRepository = projetoRepository;
         this.tabelaRepository = tabelaRepository;
     }
-
+    
     @GetMapping("/dash/{projeto}")
     public ResponseEntity<List<Tabela>> getAllTabelasByProjeto(@PathVariable Integer projeto) {
         // Buscar todas as tabelas relacionadas ao projeto

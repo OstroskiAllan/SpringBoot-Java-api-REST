@@ -14,7 +14,7 @@ public class Tarefa {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 200, name = "observacao_tarefa")
     private String observacaoTarefa;
 
     @Temporal(TemporalType.DATE)
